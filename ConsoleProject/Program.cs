@@ -7,7 +7,7 @@ namespace ConsoleProject
     {
         static void Main(string[] args)
         {
-            Department dep1 = new Department("m");
+          
         }
     }
 }

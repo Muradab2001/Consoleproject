@@ -9,6 +9,7 @@ namespace ConsoleProject.Models
         private string _name;
         private byte _workerlimit;
         public Employee[] Employes;
+        private double _salarylimit;
         public string Name { 
             get => _name;
             set
@@ -38,6 +39,23 @@ namespace ConsoleProject.Models
                 _workerlimit = value;
             } 
         }
+        public double Salarylimit 
+        {
+            get => _salarylimit;
+            set
+            {
+                while (!Salarylimitcheck(value))
+                {
+                    
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("daxil etdiyiniz deyer ayliq budceni asir");
+                        Console.WriteLine("yeniden daxil et");
+                        double.TryParse(Console.ReadLine(), out value);
+                }
+                _salarylimit = value;
+            } 
+        }
         public bool Namechecker(string name)
         {
             while (true)
@@ -54,7 +72,6 @@ namespace ConsoleProject.Models
                     }
                     if (check == true)
                     {
-                        _name = name;
                         return true;
                     }
                     else
@@ -74,9 +91,34 @@ namespace ConsoleProject.Models
                 }
             }
         }
-        public Department(string name)
+        public double CalcSalaryAverage()
+        {
+            double totalsalary = 0;
+            foreach (Employee employee in Employes)
+            {
+                totalsalary += employee.Salary;
+            }
+            totalsalary = totalsalary / Employes.Length;
+            return totalsalary;
+        }
+        public bool Salarylimitcheck(double salarylimit)
+        {
+            double countsalary = _workerlimit * 250;
+            if (salarylimit >= countsalary)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Department(string name,byte workerlimit, double salarylimit)
         {
             Name = name;
+            Employes = new Employee[0];
+            WorkerLimit = workerlimit;
+            Salarylimit = salarylimit;
         }
     }
     

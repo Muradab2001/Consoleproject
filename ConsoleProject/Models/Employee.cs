@@ -6,48 +6,38 @@ namespace ConsoleProject.Models
 {
     class Employee
     {
-        public string DepartmentName;
+        public string DepartmentName { get; set; }
         private string _position;
         private double _salary;
         public string No;
-        private static int count;
-        public string Fullname { get; set; }
+        private static int _count;
+        private string _fullname;
 
-   
+        public string Fullname 
+        {
+            get => _fullname;
+            set
+            {
+                while (!fullnamechecker(value))
+                    
+                    {
+                        Console.WriteLine("Duzgun Daxil Et");
+                        value = Console.ReadLine();
+                    }
+                _fullname = value;
+            } 
+        }
         public string Position {
 
             get => _position;
             set
             {
-                bool Loopcheck = true;
-                while (Loopcheck)
+                while (!positionchecker(value))
                 {
-                    if (value.Length >= 2)
-                    {
-                        bool check = true;
-                        foreach (char item in value)
-                        {
-                            if (!char.IsLetter(item))
-                            {
-                                check = false;
-                            }
-                        }
-                        if (check == true)
-                        {
-                            _position = value;
-                            Loopcheck = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("ancaq  herifden ibaret olmalidri");
-                            value = Console.ReadLine();
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("minimum 2 herifden ibaret ola biler");
+                        Console.WriteLine("Duzgun Daxil Et");
                         value = Console.ReadLine();
-                    }
+                    
+                    _position = value;
                 }
             } 
         }
@@ -69,17 +59,53 @@ namespace ConsoleProject.Models
         }
         static Employee()
         {
-            count = 1000;
+            _count = 1000;
         }
-        public Employee(string departmentname)
+        public Employee(string departmentname,string no, string position, double salary)
         {
-            count++;
-            No = $"{departmentname.Substring(0, 2) }{count}";
-        }
-        public Employee(string position,double salary)
-        {
+            _count++;
+            No = $"{departmentname.Substring(0, 2) }{_count}";
+            DepartmentName = departmentname;
+            No = no;
             Position = position;
+           
             Salary = salary;
+        }
+        public bool fullnamechecker(string fullname)
+        {
+            return fullname.Split(' ').Length > 2;
+        }
+        public bool positionchecker(string position)
+        {
+            while (true)
+            {
+                if (position.Length >= 2)
+                {
+                    bool check = true;
+                    foreach (char item in position)
+                    {
+                        if (!char.IsLetter(item))
+                        {
+                            check = false;
+                        }
+                    }
+                    if (check == true)
+                    {
+                        return true;
+                      
+                    }
+                    else
+                    {
+                        Console.WriteLine("ancaq  herifden ibaret olmalidri");
+                        position = Console.ReadLine();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("minimum 2 herifden ibaret ola biler");
+                    position = Console.ReadLine();
+                }
+            }
         }
     }
 }
