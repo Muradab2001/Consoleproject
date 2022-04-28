@@ -30,8 +30,6 @@ namespace ConsoleProject.Models
             {
                 while (value<10)
                 {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("minimum 10 olmalidir");
                     Console.WriteLine("yeniden daxil et");
                     byte.TryParse(Console.ReadLine(), out value);
@@ -46,9 +44,6 @@ namespace ConsoleProject.Models
             {
                 while (!Salarylimitcheck(value))
                 {
-                    
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("daxil etdiyiniz deyer ayliq budceni asir");
                         Console.WriteLine("yeniden daxil et");
                         double.TryParse(Console.ReadLine(), out value);
@@ -94,17 +89,22 @@ namespace ConsoleProject.Models
         public double CalcSalaryAverage()
         {
             double totalsalary = 0;
-            foreach (Employee employee in Employes)
+            if (Employes.Length>=1)
             {
-                totalsalary += employee.Salary;
+            
+                foreach (Employee employee in Employes)
+                {
+                    totalsalary += employee.Salary;
+                }
+                totalsalary = totalsalary / Employes.Length;
+                return totalsalary;
             }
-            totalsalary = totalsalary / Employes.Length;
             return totalsalary;
         }
         public bool Salarylimitcheck(double salarylimit)
         {
-            double countsalary = _workerlimit * 250;
-            if (salarylimit >= countsalary)
+          
+            if (salarylimit >= _workerlimit * 250)
             {
                 return true;
             }

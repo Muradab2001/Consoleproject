@@ -11,4 +11,3 @@ C:\Users\Murad\Desktop\consoleproject\Consoleproject\ConsoleProject\obj\Debug\ne
 C:\Users\Murad\Desktop\consoleproject\Consoleproject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.dll
 C:\Users\Murad\Desktop\consoleproject\Consoleproject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.pdb
 C:\Users\Murad\Desktop\consoleproject\Consoleproject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.genruntimeconfig.cache
-C:\Users\Murad\Desktop\consoleproject\Consoleproject\ConsoleProject\obj\Debug\netcoreapp3.1\ConsoleProject.csproj.AssemblyReference.cache

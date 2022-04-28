@@ -12,6 +12,9 @@ namespace ConsoleProject.Interfaces
 
         Department[] GetDepartments();
         void EditDepartment(string name);
+        void AddEmploye(string fullname, string position, double salary, string DepartmentName);
+        void EditEmploye(string fullname,string no,double salary,string position,string departmentname);
+        void RemoveEmployee(string no,string departmentname);
 
     }
 }

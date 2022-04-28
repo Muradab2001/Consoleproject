@@ -9,7 +9,7 @@ namespace ConsoleProject.Models
         public string DepartmentName { get; set; }
         private string _position;
         private double _salary;
-        public string No;
+        public  string No;
         private static int _count;
         private string _fullname;
 
@@ -61,13 +61,13 @@ namespace ConsoleProject.Models
         {
             _count = 1000;
         }
-        public Employee(string departmentname,string no, string position, double salary)
+        public Employee(string departmentname, string position, double salary,string fullname)
         {
             _count++;
             No = $"{departmentname.Substring(0, 2) }{_count}";
             DepartmentName = departmentname;
-            No = no;
             Position = position;
+            Fullname = fullname;
            
             Salary = salary;
         }
