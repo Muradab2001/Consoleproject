@@ -9,7 +9,6 @@ namespace ConsoleProject.Services
     class HumanResourceManager : IHumanResourceManager
     {
         private Department[] _departmentarr;
-
         public Department[] Departments { get => _departmentarr; }
         public HumanResourceManager()
         {
@@ -17,14 +16,16 @@ namespace ConsoleProject.Services
         }
         public void AddDepartment(string name, byte workerlimit, double salarylimit)
         {
-            if (DepartmentFindName(name) == null)
+            //Department department1 = DepartmentFindName(name);
+            Department department = new Department(name, workerlimit, salarylimit);
+            if (DepartmentFindName(department.Name) != null)
             {
-                Department department = new Department(name, workerlimit, salarylimit);
-                Array.Resize(ref _departmentarr, _departmentarr.Length + 1);
-                _departmentarr[_departmentarr.Length - 1] = department;
+                Console.WriteLine("eyni adda 2 ci sirket adi ola bilmez");
                 return;
             }
-            Console.WriteLine("eyni adda 2 ci sirket adi ola bilmez");
+            Array.Resize(ref _departmentarr, _departmentarr.Length + 1);
+            _departmentarr[_departmentarr.Length - 1] = department;
+         
         }
 
         public Department[] GetDepartments()
@@ -32,18 +33,23 @@ namespace ConsoleProject.Services
             return _departmentarr;
         }
 
-        public void EditDepartment(string name)
+        public void EditDepartment(string name, string newname)
         {
             Department department = DepartmentFindName(name);
 
             if (department != null)
             {
-                department.Name = name;
-                foreach (Employee employee in department.Employes)
+                department.Name = newname;
+                if (department.Employes != null)
                 {
-                    employee.No.Replace(employee.No.Substring(0, 2), department.Name.Substring(0, 2).ToUpper());
-                    employee.DepartmentName = name;
+                    foreach (Employee employee in department.Employes)
+                    {
+                        employee.No.Replace(employee.No.Substring(0, 2), department.Name.Substring(0, 2).ToUpper());
+                        employee.DepartmentName = newname;
+                        return;
+                    }
                 }
+                return;
             }
             Console.WriteLine($"daxil etdiyiniz {name} qurup yoxdur ");
         }
@@ -52,12 +58,14 @@ namespace ConsoleProject.Services
         {
             foreach (Department department in _departmentarr)
             {
-                if (department.Name.ToUpper() == name.ToUpper())
+                while (department.Name.ToUpper() == name.ToUpper())
                 {
                     return department;
                 }
+
             }
             return null;
+
         }
 
         public void AddEmploye(string fullname, string position, double salary, string DepartmentName)
@@ -82,21 +90,20 @@ namespace ConsoleProject.Services
             return;
         }
 
-        public void EditEmploye(string fullname, string no, double salary, string position, string departmentname)
+        public void EditEmploye(string no, double salary, string position, string departmentname)
         {
             Department department = DepartmentFindName(departmentname);
             if (department != null)
             {
                 foreach (Employee employee in department.Employes)
                 {
-                    if (employee.No == no)
+                    if (employee.No == no.ToUpper())
                     {
                         if (((department.CalcSalaryAverage() * department.Employes.Length) - employee.Salary) + salary > department.Salarylimit)
                         {
                             Console.WriteLine("maas heddi asib");
                             return;
                         }
-                        employee.Fullname = fullname;
                         employee.Position = position;
                         employee.Salary = salary;
                         employee.DepartmentName = departmentname;
@@ -122,8 +129,8 @@ namespace ConsoleProject.Services
                 Console.WriteLine($"bele isci nomresi {no} yoxdur");
                 return;
             }
-                Console.WriteLine($"bu adda {department} yoxdur");
-                return;
+            Console.WriteLine($"bu adda {department} yoxdur");
+            return;
         }
     }
 }

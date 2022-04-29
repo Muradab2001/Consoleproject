@@ -18,6 +18,7 @@ namespace ConsoleProject.Models
                 {
                     Console.WriteLine("Duzgun Daxil Et");
                     value = Console.ReadLine();
+                    
                 }
                 _name = value;
             }
@@ -28,7 +29,7 @@ namespace ConsoleProject.Models
             get => _workerlimit;
             set
             {
-                while (value<10)
+                while (value<0)
                 {
                     Console.WriteLine("minimum 10 olmalidir");
                     Console.WriteLine("yeniden daxil et");
@@ -53,38 +54,18 @@ namespace ConsoleProject.Models
         }
         public bool Namechecker(string name)
         {
-            while (true)
+            if (name.Length >=2)
             {
-                if (name.Length >= 2)
+                foreach (var item in name)
                 {
-                    bool check = true;
-                    foreach (char item in name)
+                    if (!char.IsLetter(item))
                     {
-                        if (!char.IsLetter(item))
-                        {
-                            check = false;
-                        }
-                    }
-                    if (check == true)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("ancaq  herifden ibaret olmalidri");
-                        name = Console.ReadLine();
+                        return false;
                     }
                 }
-                else
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("minimum 2 herifden ibaret ola biler");
-                    name = Console.ReadLine();
-                }
+                return true;
             }
+            return false;
         }
         public double CalcSalaryAverage()
         {
@@ -119,6 +100,10 @@ namespace ConsoleProject.Models
             Employes = new Employee[0];
             WorkerLimit = workerlimit;
             Salarylimit = salarylimit;
+        }
+        public override string ToString()
+        {
+            return $"sobenin adi: {_name} sobenin isci limiti: {_workerlimit} sobenin limiti {_salarylimit}";
         }
     }
     

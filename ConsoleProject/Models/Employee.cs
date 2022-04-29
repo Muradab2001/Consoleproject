@@ -9,39 +9,38 @@ namespace ConsoleProject.Models
         public string DepartmentName { get; set; }
         private string _position;
         private double _salary;
-        public  string No;
+        public string No;
         private static int _count;
         private string _fullname;
 
-        public string Fullname 
+        public string Fullname
         {
             get => _fullname;
             set
             {
                 while (!fullnamechecker(value))
-                    
-                    {
-                        Console.WriteLine("Duzgun Daxil Et");
-                        value = Console.ReadLine();
-                    }
+                {
+                    Console.WriteLine("isci adi 2 hisseden ibaret olmalidir");
+                    value = Console.ReadLine();
+                }
                 _fullname = value;
-            } 
+            }
         }
-        public string Position {
+        public string Position
+        {
 
             get => _position;
             set
             {
                 while (!positionchecker(value))
-                {
-                        Console.WriteLine("Duzgun Daxil Et");
-                        value = Console.ReadLine();
-                    
-                    _position = value;
+                {   
+                    Console.WriteLine("isci vezifesi ancaq herifden  ibaret olmalidir ve minimum 2 herifden ibaret olmalidir");
+                    value = Console.ReadLine();
                 }
-            } 
+                _position = value;
+            }
         }
-        public double Salary 
+        public double Salary
         {
             get => _salary;
             set
@@ -55,25 +54,25 @@ namespace ConsoleProject.Models
                     double.TryParse(Console.ReadLine(), out value);
                 }
                 _salary = value;
-            } 
+            }
         }
         static Employee()
         {
             _count = 1000;
         }
-        public Employee(string departmentname, string position, double salary,string fullname)
+        public Employee(string departmentname, string position, double salary, string fullname)
         {
             _count++;
             No = $"{departmentname.Substring(0, 2) }{_count}";
             DepartmentName = departmentname;
             Position = position;
             Fullname = fullname;
-           
+
             Salary = salary;
         }
         public bool fullnamechecker(string fullname)
         {
-            return fullname.Split(' ').Length > 2;
+            return fullname.Split(' ').Length > 1;
         }
         public bool positionchecker(string position)
         {
@@ -92,7 +91,7 @@ namespace ConsoleProject.Models
                     if (check == true)
                     {
                         return true;
-                      
+
                     }
                     else
                     {
@@ -106,6 +105,10 @@ namespace ConsoleProject.Models
                     position = Console.ReadLine();
                 }
             }
+        }
+        public override string ToString()
+        {
+            return $"iscinin  adi: {_fullname} iscinin no: {No} iscin maasi: {_salary} iscinin vezifesi: {_position}";
         }
     }
 }
