@@ -71,12 +71,29 @@ namespace ConsoleProject
         static void AddDepartment(ref HumanResourceManager humanResourceManager)
         {
             Console.WriteLine("Sobenin adini daxil et");
-            string choosename = Console.ReadLine();
+            string Chosedepartmentname = Console.ReadLine();
+            while (string.IsNullOrEmpty(Chosedepartmentname) || Chosedepartmentname.Contains(' '))
+            {
+                Console.WriteLine("sobenin adi bos gonderlile bilmez!!!");
+                Chosedepartmentname = Console.ReadLine();
+            }
             Console.WriteLine("sobenin isci limitin daxil et");
-            byte.TryParse(Console.ReadLine(), out byte workerlimit);
+            string Chooseworkerlimit = Console.ReadLine();
+            while (string.IsNullOrEmpty(Chooseworkerlimit) || Chooseworkerlimit.Contains(' '))
+            {
+                Console.WriteLine("sobenin isci limiti bos ola bilmez!!");
+                Chooseworkerlimit = Console.ReadLine();
+            }
+            byte.TryParse(Chooseworkerlimit, out byte workerlimit);
             Console.WriteLine("sobenin budcesi daxil et");
-            double.TryParse(Console.ReadLine(), out double salarylimit);
-            humanResourceManager.AddDepartment(choosename, workerlimit, salarylimit);
+            string Salarylimitcheck = Console.ReadLine();
+            while (string.IsNullOrEmpty(Salarylimitcheck) || Salarylimitcheck.Contains('.') || Salarylimitcheck.Contains(' '))
+            {
+                Console.WriteLine("budce limitin bos ola bilmez!!");
+                Salarylimitcheck = Console.ReadLine();
+            }
+            double.TryParse(Salarylimitcheck, out double salarylimit);
+            humanResourceManager.AddDepartment(Chosedepartmentname, workerlimit, salarylimit);
         }
         static void addEmployee(ref HumanResourceManager humanResourceManager)
         {

@@ -35,20 +35,21 @@ namespace ConsoleProject.Services
 
         public void EditDepartment(string name, string newname)
         {
-            Department department = DepartmentFindName(name);
+            Department departmentold = DepartmentFindName(name);
+            Department departmentnew = DepartmentFindName(newname);
 
-            if (department != null)
+            if (departmentold != null)
             {
-                department.Name = newname;
-                if (department.Employes != null)
+                if (departmentnew == null)
                 {
-                    foreach (Employee employee in department.Employes)
+                    foreach (Employee employee in departmentold.Employes)
                     {
-                        employee.No.Replace(employee.No.Substring(0, 2), department.Name.Substring(0, 2).ToUpper());
+                        employee.No.Replace(employee.No.Substring(0, 2), departmentnew.Name.Substring(0, 2).ToUpper());
                         employee.DepartmentName = newname;
                         return;
                     }
                 }
+                Console.WriteLine($"daxil etdiyiniz yeni qurup adi movcuddu");
                 return;
             }
             Console.WriteLine($"daxil etdiyiniz {name} qurup yoxdur ");
@@ -62,12 +63,10 @@ namespace ConsoleProject.Services
                 {
                     return department;
                 }
-
             }
             return null;
 
         }
-
         public void AddEmploye(string fullname, string position, double salary, string DepartmentName)
         {
             Department department = DepartmentFindName(DepartmentName);

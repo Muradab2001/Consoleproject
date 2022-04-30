@@ -31,7 +31,7 @@ namespace ConsoleProject.Models
             {
                 while (value<0)
                 {
-                    Console.WriteLine("minimum 10 olmalidir");
+                    Console.WriteLine("sobenin isci limiti minimum 1 olmalidir");
                     Console.WriteLine("yeniden daxil et");
                     byte.TryParse(Console.ReadLine(), out value);
                 }
@@ -103,7 +103,7 @@ namespace ConsoleProject.Models
         }
         public override string ToString()
         {
-            return $"sobenin adi: {_name} sobenin isci limiti: {_workerlimit} sobenin limiti {_salarylimit}";
+            return $"sobenin adi: {_name} sobenin isci limiti: {_workerlimit} sobenin budce limiti {_salarylimit}";
         }
     }
     
