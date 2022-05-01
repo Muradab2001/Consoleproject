@@ -16,7 +16,6 @@ namespace ConsoleProject.Services
         }
         public void AddDepartment(string name, byte workerlimit, double salarylimit)
         {
-            //Department department1 = DepartmentFindName(name);
             Department department = new Department(name, workerlimit, salarylimit);
             if (DepartmentFindName(department.Name) != null)
             {
@@ -33,7 +32,7 @@ namespace ConsoleProject.Services
             return _departmentarr;
         }
 
-        public void EditDepartment(string name, string newname)
+        public void EditDepartment(string name, string newname, byte workerlimit, double salarylimit)
         {
             Department departmentold = DepartmentFindName(name);
             Department departmentnew = DepartmentFindName(newname);
@@ -42,12 +41,23 @@ namespace ConsoleProject.Services
             {
                 if (departmentnew == null)
                 {
-                    foreach (Employee employee in departmentold.Employes)
+                    departmentold.Name = newname;
+                    departmentold.Salarylimit = salarylimit;
+                    if (departmentold.Employes.Length< workerlimit)
                     {
-                        employee.No.Replace(employee.No.Substring(0, 2), departmentnew.Name.Substring(0, 2).ToUpper());
-                        employee.DepartmentName = newname;
+                        departmentold.WorkerLimit = workerlimit;
+                    }
+                    else
+                    {
+                        Console.WriteLine("isci limiti sirketdeki iscilerden az ola bilmez");
                         return;
                     }
+                    foreach (Employee employee in departmentold.Employes)
+                    {
+                        employee.DepartmentName = newname;
+                        employee.No=employee.DepartmentName.Substring(0, 2).ToUpper()+ employee.No.Substring(2);
+                    }
+                    return;
                 }
                 Console.WriteLine($"daxil etdiyiniz yeni qurup adi movcuddu");
                 return;
@@ -84,6 +94,8 @@ namespace ConsoleProject.Services
                     department.Employes[department.Employes.Length - 1] = departments;
                     return;
                 }
+                Console.WriteLine("isci limiti doludu!!");
+                return;
             }
             Console.WriteLine($"daxil etdiyiniz {DepartmentName} qurup yoxdur ");
             return;
@@ -108,7 +120,9 @@ namespace ConsoleProject.Services
                         employee.DepartmentName = departmentname;
                     }
                 }
+                Console.WriteLine("axtarilan isci yoxdu");
             }
+            
         }
 
         public void RemoveEmployee(string no, string departmentname)

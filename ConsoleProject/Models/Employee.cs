@@ -34,7 +34,7 @@ namespace ConsoleProject.Models
             {
                 while (!positionchecker(value))
                 {   
-                    Console.WriteLine("isci vezifesi ancaq herifden  ibaret olmalidir ve minimum 2 herifden ibaret olmalidir");
+                    Console.WriteLine("isci vezifesi ancaq herifden ibaret olmalidir ve minimum 2 herifden ibaret olmalidir");
                     value = Console.ReadLine();
                 }
                 _position = value;

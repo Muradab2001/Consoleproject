@@ -58,7 +58,11 @@ namespace ConsoleProject.Models
             {
                 foreach (var item in name)
                 {
-                    if (!char.IsLetter(item))
+                    if (char.IsWhiteSpace(item))
+                    {
+                        return true;
+                    }
+                    else if(!char.IsLetter(item))
                     {
                         return false;
                     }

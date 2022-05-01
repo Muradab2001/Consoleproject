@@ -11,7 +11,7 @@ namespace ConsoleProject
             HumanResourceManager humanResourceManager = new HumanResourceManager();
             do
             {
-                Console.WriteLine("=====Welcome Couse Management======\n");
+                Console.WriteLine("=====Welcome Departament Create======\n");
                 Console.WriteLine("Etmek Isdediyniz Emeliyyatin Reqemini Daxil Et\n");
                 Console.WriteLine("1. Sobe elave etmek:");
                 Console.WriteLine("2. isci elave etmek:");
@@ -37,7 +37,7 @@ namespace ConsoleProject
                         break;
                     case 2:
                         Console.Clear();
-                        addEmployee(ref humanResourceManager);
+                        AddEmployee(ref humanResourceManager);
                         break;
                     case 3:
                         Console.Clear();
@@ -56,9 +56,11 @@ namespace ConsoleProject
                         Getdepartamentemploye(ref humanResourceManager);
                         break;
                     case 7:
+                        Console.Clear();
                         Getallemoloyee(ref humanResourceManager);
                         break;
                     case 8:
+                        Console.Clear();
                         RemoveEmployee(ref humanResourceManager);
                         break;
                     case 9:
@@ -72,14 +74,14 @@ namespace ConsoleProject
         {
             Console.WriteLine("Sobenin adini daxil et");
             string Chosedepartmentname = Console.ReadLine();
-            while (string.IsNullOrEmpty(Chosedepartmentname) || Chosedepartmentname.Contains(' '))
+            while (!Spacebarnullchecker(Chosedepartmentname))
             {
                 Console.WriteLine("sobenin adi bos gonderlile bilmez!!!");
                 Chosedepartmentname = Console.ReadLine();
             }
             Console.WriteLine("sobenin isci limitin daxil et");
             string Chooseworkerlimit = Console.ReadLine();
-            while (string.IsNullOrEmpty(Chooseworkerlimit) || Chooseworkerlimit.Contains(' '))
+            while (!Spacebarnullchecker(Chooseworkerlimit))
             {
                 Console.WriteLine("sobenin isci limiti bos ola bilmez!!");
                 Chooseworkerlimit = Console.ReadLine();
@@ -87,7 +89,7 @@ namespace ConsoleProject
             byte.TryParse(Chooseworkerlimit, out byte workerlimit);
             Console.WriteLine("sobenin budcesi daxil et");
             string Salarylimitcheck = Console.ReadLine();
-            while (string.IsNullOrEmpty(Salarylimitcheck) || Salarylimitcheck.Contains('.') || Salarylimitcheck.Contains(' '))
+            while (!Spacebarnullchecker(Salarylimitcheck))
             {
                 Console.WriteLine("budce limitin bos ola bilmez!!");
                 Salarylimitcheck = Console.ReadLine();
@@ -95,7 +97,7 @@ namespace ConsoleProject
             double.TryParse(Salarylimitcheck, out double salarylimit);
             humanResourceManager.AddDepartment(Chosedepartmentname, workerlimit, salarylimit);
         }
-        static void addEmployee(ref HumanResourceManager humanResourceManager)
+        static void AddEmployee(ref HumanResourceManager humanResourceManager)
         {
             foreach (Department department in humanResourceManager.Departments)
             {
@@ -103,12 +105,33 @@ namespace ConsoleProject
             }
             Console.WriteLine("iscini hansi sobeye salmaq isteyirsiniz");
             string Departamentname = Console.ReadLine();
+            while (!Spacebarnullchecker(Departamentname))
+            {
+                Console.WriteLine("axtarilan sobe bos ola bilmez!!");
+                Departamentname = Console.ReadLine();
+            }
             Console.WriteLine("iscinin adini daxil et");
             string employename = Console.ReadLine();
+            while (string.IsNullOrEmpty(employename))
+            {
+                Console.WriteLine("isci adi bos ola bilmez!!");
+                employename = Console.ReadLine();
+            }
             Console.WriteLine("iscinin maasin daxil edin");
-            double.TryParse(Console.ReadLine(), out double salary);
+            string Checksalary = Console.ReadLine();
+            while (!Spacebarnullchecker(Checksalary))
+            {
+                Console.WriteLine("maas bos ola bilmez!!");
+                Checksalary = Console.ReadLine();
+            }
+            double.TryParse(Checksalary, out double salary);
             Console.WriteLine("iscinin vezifesin daxil edin");
             string position = Console.ReadLine();
+            while (!Spacebarnullchecker(position))
+            {
+                Console.WriteLine("iscinin vezifesi bos ola bilmez!!");
+                position = Console.ReadLine();
+            }
             humanResourceManager.AddEmploye(employename, position, salary, Departamentname.ToUpper());
         }
         static void EditDepartment(ref HumanResourceManager humanResourceManager)
@@ -121,7 +144,14 @@ namespace ConsoleProject
             string Departamentname = Console.ReadLine();
             Console.WriteLine("yeni sobe adin daxil et");
             string Departamentnamenew = Console.ReadLine();
-            humanResourceManager.EditDepartment(Departamentname, Departamentnamenew);
+            Console.WriteLine("sobeninn isci limitin daxil edin");
+            string depatamentworkerlimit = Console.ReadLine();
+            Console.WriteLine("sobenin budce limitin daxil edin");
+            string Checksalary = Console.ReadLine();
+            double.TryParse(Checksalary, out double salary);
+            byte.TryParse(depatamentworkerlimit, out byte workerlimit);
+
+            humanResourceManager.EditDepartment(Departamentname, Departamentnamenew, workerlimit, salary);
         }
         static void EditEmploye(ref HumanResourceManager humanResourceManager)
         {
@@ -201,6 +231,13 @@ namespace ConsoleProject
             string no = Console.ReadLine();
             humanResourceManager.RemoveEmployee(no, departmentname);
         }
-        
+        static bool Spacebarnullchecker(string a)
+        {
+            if (string.IsNullOrEmpty(a) || a.Contains(' ') || a.Contains('.'))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
