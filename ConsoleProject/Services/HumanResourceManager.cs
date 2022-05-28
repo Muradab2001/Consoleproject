@@ -41,9 +41,7 @@ namespace ConsoleProject.Services
             {
                 if (departmentnew == null)
                 {
-                    departmentold.Name = newname;
-                    departmentold.Salarylimit = salarylimit;
-                    if (departmentold.Employes.Length< workerlimit)
+                    if (departmentold.Employes.Length < workerlimit)
                     {
                         departmentold.WorkerLimit = workerlimit;
                     }
@@ -52,6 +50,8 @@ namespace ConsoleProject.Services
                         Console.WriteLine("isci limiti sirketdeki iscilerden az ola bilmez");
                         return;
                     }
+                    departmentold.Name = newname;
+                    departmentold.Salarylimit = salarylimit;
                     foreach (Employee employee in departmentold.Employes)
                     {
                         employee.DepartmentName = newname;
